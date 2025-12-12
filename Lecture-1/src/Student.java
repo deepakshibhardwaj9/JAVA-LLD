@@ -5,7 +5,7 @@ public class Student {
     public String name; // accessiable outside the class as well.
     private int rollNumber; // this attribute is encapsulated using private modifier.
 
-    //default constructor
+    //No Arrgument Constructor
     Student()
     {
         this.age=10;
@@ -13,7 +13,7 @@ public class Student {
         this.rollNumber= 999;
     }
 
-    //customer constructor
+    //Custom Constructor
     Student(int age,String name,int rN)
     {
      this.age=age;
@@ -26,4 +26,5 @@ public class Student {
         //2) Custom/Parameterized Constructors
     //ENCAPSLATION :We can use concept encapsulation to hold the attributes and behavior together so that we can allow control over the attributes.
     //So we have three types of access modifires : public,private,default,protected.
+
 }
