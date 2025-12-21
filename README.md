@@ -3,7 +3,7 @@ Low Level Design Concepts are introduced in this Repository:
 1) Lecture 1 : It contains basic information about Class, Object, Constructors implementation.
 2) Lecture 2 : It contains information about Copy Constructor, Deep Copy and Shallow Copy, Inheritance.
 3) Inheritance : 
-4) Lecture 4 : It contains information about 
+4) Polymorphism :
 5) Lecture 5 : It contains information about
 6) Lecture 6 : It contains information about
 7) Lecture 7 : It contains information about
