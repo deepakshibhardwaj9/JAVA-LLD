@@ -1,7 +1,7 @@
 # JAVA-LLD
 Low Level Design Concepts are introduced in this Repository:
-1) JAVA BASIC CLASS
-2) TYPES OF CONSTRUCTORS
+1) Lecture 1 : JAVA BASIC CLASS
+2) TLecture 2 : YPES OF CONSTRUCTORS
 3) INHERITANCE
 4) POLYMORPHISM
 5) Lecture 5 : It contains information about
