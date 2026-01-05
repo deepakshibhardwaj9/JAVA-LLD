@@ -1,12 +1,12 @@
 # JAVA-LLD
 Low Level Design Concepts are introduced in this Repository:
 1) Lecture 1 : JAVA BASIC CLASS
-2) TLecture 2 : YPES OF CONSTRUCTORS
-3) INHERITANCE
-4) POLYMORPHISM
-5) Lecture 5 : It contains information about
-6) Lecture 6 : It contains information about
-7) Lecture 7 : It contains information about
-8) Lecture 8 : It contains information about
-9) Lecture 9 : It contains information about
-10) Lecture 10 : It contains information about 
+2) TLecture 2 : TYPES OF CONSTRUCTORS
+3) Inheritance
+4) Interfaces and Abstract Classes
+5) Polymorphism
+6) Concurrency 1: Processes And Threads
+7) Concurrency 2: Multi-threading using Merge Sort
+8) Concurrency 3:
+9) Generics 
+10) Streams and Lambda
