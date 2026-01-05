@@ -24,10 +24,10 @@ public class Main {
         System.out.println("Main Thread : " +Thread.currentThread().getName());
 
 //  THIS IS INPUT FOR THE FUNCTION USING SINGLE-THREAD TO PRINT ALL NUMBERS.
-//        PrintNumbers add = new PrintNumbers();
-//        Thread t1 = new Thread(add);
-//        t1.start();
-//        System.out.println("Running Thread : " +Thread.currentThread().getName());
+        PrintNumbers add = new PrintNumbers(9);
+        Thread t1 = new Thread(add);
+        t1.start();
+        System.out.println("Running Thread : " +Thread.currentThread().getName());
 
         // So both the lines at line no.22 and 27 will give output as "main", because "main-thread" is running and keep on executing, no matters what other threads are doing.
         // Other tasks are running there our threads, so if we want to know which thread is working on another tasks than we should check inside tasks.
@@ -51,7 +51,19 @@ public class Main {
         ExecutorService execute = Executors.newCachedThreadPool();
         for (int i=1;i<=100;i++)
         {
-            execute.execute(new PrintNumbers(i));
+            execute.submit(new PrintNumbers(i));
         }
+
+//         used this shutdown() method to stop the executorService after performing its task. Else it will keep on working.
+        execute.shutdown();
+        System.out.println("Main Thread : " +Thread.currentThread().getName());
+        // isTerminated() is used to ensure that all tasks are performed before we go to the next line of execution.
+        execute.isTerminated();
+        System.out.println("Main Thread : " +Thread.currentThread().getName());
+
+//Every application has its own fixed number of threads associated with it.
+
+        //CALLABLES : it will create threads,perform task and return a value.
+        // Callables return result and throw checked exceptions.
     }
 }
