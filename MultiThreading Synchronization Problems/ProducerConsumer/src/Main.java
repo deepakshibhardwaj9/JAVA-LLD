@@ -63,6 +63,7 @@ public class Main {
 
         // PROBLEM HERE IS THREADS DON'T WAIT FOR EACH_OTHER TO EXECUTE
         // Threads are executing but synchronized block won't enter other threads to enter while one is executing
-        // If we want threads to wait than we should use lock-object to use block(),wait(),etc. methods.
+        // So, only one thread of producer/consumer can enter the synchronized-block for now.
+        // This problem can be solved using SEMAPHORES.
     }
 }
