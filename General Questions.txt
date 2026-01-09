@@ -1,0 +1,151 @@
+1) WHEN WE WRITE PARAMETERIZED CONSTRUCTOR THAN IS IT NECESSARY TO WRITE NO-PARAMETERIED CONSTRUCTOR??
+   - Not always, but it depends on the situation.
+   - The Default Rule: If you do not write any constructor, the compiler automatically creates a hidden "Default Constructor" (no parameters) for you.
+   - The Override: If you write a Parameterized Constructor, the compiler removes that automatic default constructor.
+   - When it becomes necessary to give non-parameterized constructor:
+     If you want to create an object without passing values (e.g., Point p = new Point();).
+     If you are using Inheritance (Child classes look for the parent's no-arg constructor).
+     If you are using frameworks (like Hibernate or Spring) that require a no-arg constructor to instantiate objects.
+
+2) DIFFERENCE BETWEEN 'final' AND 'constant' KEYWORD.
+   'final' keyword assign a value at run-time.
+   'static' keyword assign a value at compile-time.
+   Both the keywords are used to assigned the values needs to be immutable.
+
+3) DIFFERENCE BETWEEN 'interface' AND 'abstract class'.
+   We cannot create instances of both interface and abstract-class
+   An 'interface' has defination of all methods and variables of child-classes, who will goining to implement interface.
+   If a class implement an interface, than that class will define the functionality of all methods. 
+   Whereas an abstract-class has complete-methods and abstract-methods as well.
+   
+4) SOME UNIQUE PROPERTIES OF DATA-MEMBERS IN 'interface'
+   Interface data-members are indeed both 'final' and 'static' by default. This means they are constants shared across all the implementations.
+   If we need to use unique variables from interface, we need to do it indirecty.
+
+5) DIFFERENCE BETWEEN 'final' AND 'static' KEYWORD.
+   'static' and 'final' variables are those variables which are defined at class-level.
+   Memory for these variables are given before the class instantiated, so we can use these variables without creating an object.
+   There is only one copy of the variable shared by all objects.
+   The difference between them is, we can change the value of 'static' variable but we cannot change the value of final keyword once the value is intiallized to the variables.
+   We can change the value of static variable from Main class.
+   We can make a variable purley constant variable by using both static and final keyword.
+						
+6) DOES 'abstract class' NEEDS abstract_method ALWAYS?
+   No, there are some situtations where we dont need to give abstract-method to an abstract-class.
+   For example, we create a base class, that cannot be instantiated, but provides common functionality for its subclasses, so we mark that class as abstract-class.
+
+7) CAN WE INSTANSIATE AN abstract_class?
+   No, abstract class might have incomplete methods and we can not create objects for incomplete classes.
+
+8) IF A CLASS HAS AN abstract_method, CAN IT BE A CONCRETE-CLASS?
+   Concrete-class is complete class, whereas abstract-method means incomplete method. 
+   So a concrete class can not have an abstract-method.
+   
+9) WHY THERE IS NEED OF CREATING THREADS WHEN WE HAVE SIMPLE CLASS?
+   So, a class is executing using Main-thread, and it runs the whole task sequentially at a given time. 
+   Whereas if we want multiple tasks to run at same time, either concurentlly/parallely than we use Threads.
+   A thread is a simple class, which we converted to run it as a independent class with other tasks at same time.
+ 
+10) DIFFERENCE BETWEEN Runnables AND Callables?
+
+10) DIFFERENCE BETWEEN submit() AND execute() methods IN ExecutorService FOR THREADS?
+
+11) shutdown() AND isTerminated() IN THREADS?
+
+12) REAL-LIFE EXAMPLE OF MULTITHREADING.
+    In airlines, when we book the ticktes, we see the price-> book the seats-> get confirmation number -> after some time we get our PNR number.
+    This is asynchronous thread calling, when confirmation number is generates, Airline will execute a thread for backend, call the APIs and try to check from backend do we have a seat, confirm it or not,etc.
+    All of this took time atleast 1 minute, so to wait for the output we need Futures, which will wait and give the confirmed result once it is done.
+    Benefit here is : current flow will not broken, everything is working but only wait is to get the result from Future dataset.
+
+13)  WHY TO WRITE 'throws exception' in Callables???? 
+     WHAT IF WE AVOID USING IT????
+     In simple terms, the Callable interface is designed to be a more powerful version of Runnable. While Runnable.run() cannot return a value or throw checked exceptions, Callable.call() is built to do both.
+ 
+     Why use throws Exception?
+     Flexibility: The call() method signature includes throws Exception so that you don't have to wrap every small piece of code in a try-catch block inside the method.
+     Centralized Handling: It allows the exception to "bubble up" to the thread that is managing the task (the one calling future.get()). This way, the main program knows if the background task failed and why.
+
+     Scenario: Online Payment Processing:
+     Imagine you are building a system where a background task checks a user's bank balance. This task can fail due to a Network Timeout or Invalid Account Details.
+
+     The Code Example
+     Java
+     import java.util.concurrent.Callable;
+     public class PaymentTask implements Callable<String> 
+     {
+     @Override
+     public String call() throws Exception 
+	 {
+	 // Simulating a network call
+	 boolean networkDown = true;
+	 if (networkDown) 
+	 {
+		// We don't catch it here; we throw it to the main thread
+	 	throw new Exception("Bank Server is not responding!");
+	 }
+       	 return "Payment Successful";
+ 	}
+    }
+ 
+ 
+    How you handle it in the Main Thread::
+    When you call future.get(), Java forces you to handle the exception that occurred inside the Callable.
+    try 
+    {
+	 Future<String> future = executorService.submit(new PaymentTask());
+	 String result = future.get(); // The exception from call() is thrown here
+	 System.out.println(result);
+    } 
+    catch (ExecutionException e) 
+    {
+	 // This catches the "Bank Server is not responding!" error
+	 System.out.println("Task Failed: " + e.getCause().getMessage());
+    } 
+    catch (InterruptedException e) 
+    { 
+ 	System.out.println("Thread was interrupted");
+    }
+
+
+    Key Difference at a Glance
+    Feature: 	  Runnable 				Callable
+    Method: 	  run() 				call()
+    Return Value: void (Nothing) 			V (Any Object)
+    Exception:    Cannot throw checked exceptions 	Can throw checked exception.
+
+    Basically,You use throws Exception in Callables because it gives you a clean way to report errors from a background thread back to your main application.
+
+14) DIFFERENCE BETWEEN 'THREADS' AND 'EXECUTOSERVICES'?
+    ExecutorServices is an interface, if we give a task to it, it will manage the thread creation,flexibility,manage pools,etc. of its own.
+    Thread-Class is a concrete class, that you can instantiate directly to manually create threads, thread-pools etc. 
+    Inside ExecutorServices there is a thread-pool and wait-queue.
+    When threads have there tasks, threads will go inside thread-pool and perform tasks, once the thread-pool's capacity is full than the next threads will wait in wait-queue for completion of tasks.
+
+15) WHAT IS RACE CONDITION?
+    When two or more threads share the same memory at same time without waiting for each-other than race-condition occus. Because race-condition will give us inconsistent results at same time. 
+
+16) WHAT IS MUTUAL EXCLUSION?
+    When threads will ensure that one thread can access the shared-data at a time, which overcome the race-condition as well.
+    It avoids Data inconsistency in multithreading enviornment.
+    We can achieve mutual-exclusion in java using 'synchronized' keyword.
+
+17) WHAT IS CRITICAL-SECTION?
+    Critical-section is a section that access shared data and must not be executed by more than one thread at a time.
+    For example: ATM Machine is a Shared-resource. Critical section is that only person can withdrawl money at a given time. When ATM Card is inside machine it will act a a Lock for Critical-section.
+
+18) USE OF 'throws InterruptedException' IN MAIN-CLIENT CLASS?
+
+
+19) WHY TO USE 'synchronization' OVER 'locks' IN JAVA?
+    - working of synchrozed and locks are same.
+    - In 'locks' we need to create object of lock and than inject it in constructor. But in synchronization we not need to do all that.
+    - Synchronization is Easier to read and maintain, no need to lock and unlock a thread.
+    - Multiple threads can run concurrently.
+    - Multiple threads can run parallely with diffrent locks.
+    - Multiple threads can work with synchronization, but only one thread at a time can execute a synchronized block guarded by the same lock.
+    - If we want nested locks OR need locks for more than 1 variables, than go with reentrant lock.Because reentrant locks will give us more clarity over locks.
+    - If there are more than one synchronized methods are present in a class, than one thread of a object can execute only one synchronized method at a given point of time.
+    - Whereas multiple threads can access non-synchronized methods at same time.
+
+20) WHEN TO USE SEMAPHORES AND WHEN TO USE LOCKS?
