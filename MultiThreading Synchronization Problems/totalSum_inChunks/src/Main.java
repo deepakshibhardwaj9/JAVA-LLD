@@ -4,7 +4,14 @@ import java.util.concurrent.ExecutionException;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException 
+    {
+        
+        /*PROBLEM STATEMENT : 
+        * So, we have an integer array from 1 to N, where array contains N Numbers randomly, 
+        * Array can be divided into some chunks.
+        * Find the total sum of array by calculating total-sum of array in pieces.
+        * */
         int arraySize = 1000;
         int availableCores = Runtime.getRuntime().availableProcessors();
         System.out.println("Avaiable cores : "+availableCores);
