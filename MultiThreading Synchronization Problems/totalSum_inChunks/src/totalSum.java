@@ -23,4 +23,7 @@ public class totalSum implements Callable<Long>
         }
         return sum;
     }
+
+    //In this example, we will get different results because here we are not-using any technqinue which will solve the race-condition..
 }
+
