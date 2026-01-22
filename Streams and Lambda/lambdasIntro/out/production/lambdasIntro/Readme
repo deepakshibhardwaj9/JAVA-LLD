@@ -1,0 +1,12 @@
+--------ANONYMOUS CLASS------------
+1) Create a interface.
+2) Create an object of interface directly in Main class.
+3) Give defination to methods.
+
+There are some predefined interfaces in java.util.function package in JAVA, for example : Consumer,BiConsumer,Predicates,BiPRedicate,Fuction,BiFuntion
+--------------LAMBDA EXPRESSIONS---------------
+1) Create an object of interface.
+2) Use (),{},-> for creating Lambda expressions.
+
+-------------OPIMIZED LAMBDA EXPRESSION---------
+When your function in function interface is of one line than we dont even need curly-brackets { }
