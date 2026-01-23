@@ -209,4 +209,29 @@
     But if we need more than one logic to compare values or we have more parameters for Comparison than we use Comparators.
     This is in-genral use that when we should use comparators and comparables.
 
-31) 
+31) WHAT ARE FUNCTIONAL-INTERFACES?
+    Functional-Interfaces are those which has just one method inside it. 
+
+32) DOES RUNNABLES AND CALLABLES ARE ALSO FUNCTIONAL-INTERFACES?? IF YES, THAN WHY THEY HAVE toString() METHOD INSIDE IT?
+    So, yes runnables and callables are functional-interfaces, they have run() and call() method inside it respectively. 
+    But because every Java Interface implicity extends Object-class. So, they inherit these methods like toString(),etc. from Object class.
+
+33) DIFFERENCE BETWEEN LAMBDA BLOCK AND LAMBDA EXPRESSION...
+    -- Lambda Expression :
+     * Lambda Expression is with single expression and no curly braces.
+     * Syntax : (parameters) -> expression
+     * No return 
+     * No {}
+     * Expression value is automatically returned.
+    -- Lambda Block : 
+     * Lambda Block has multiple statements,enclosed in {}.
+     * Syntax : (parameters) -> {
+				   return value;
+				}
+     * {} are required
+     * return is mandatory if method is non-void
+     * suitable for complex logics
+
+34) CAN WE USE LAMBDA FOR COMPAREABLES AND COMPARATORS?
+    No, we cant use Lambdas for Compareables and Comparators. Because compareTo() needs this-object with another object for comparision.
+    And in comparables/comparators we dont have concept of this-keyword.
