@@ -1,0 +1,30 @@
+//STREAM API TASKS
+
+Task 1) Stream Basis and Map Transformation
+         - Print all item ID's in inventory using map().
+         - Create a list of item names in lowercase and print it.
+         - Generate a list of lengths of of item names.
+
+Task 2) Filtering and Matching
+        - Find all the items price above 1000.
+        - Check if any item has quantity 0 using 'anyMatch'.
+        - Verify all the items have a price greater than 0 using 'allMatch'.
+        - Confirm that no item has a negative quantity using 'noneMatch'.
+
+Task 3) Combined Streamed Operations
+        Perform the following in a single stream pipeline:
+        - Filter items with price > 1000 and quantity > 0.
+        - Extract item names.
+        - Remove duplicates.
+        - Sort names alphabetically.
+        - Limit to top 5 results.
+        - Collect into a list and print.
+
+Task 4) Reduce Function in Stream API
+        - Calculate the total quantity of all items in the inventory.
+        - Total Quantity accross items.
+        - Find the most expensive item using `reduce()`.
+        - Concatenate all item names into a comma-separated string
+
+Task 5) Custom Exceptions
+        - Create and use custom exceptions for domain-specific errors.
