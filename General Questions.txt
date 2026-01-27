@@ -1,3 +1,4 @@
+
 1) WHEN WE WRITE PARAMETERIZED CONSTRUCTOR THAN IS IT NECESSARY TO WRITE NO-PARAMETERIED CONSTRUCTOR??
    - Not always, but it depends on the situation.
    - The Default Rule: If you do not write any constructor, the compiler automatically creates a hidden "Default Constructor" (no parameters) for you.
@@ -235,3 +236,4 @@
 34) CAN WE USE LAMBDA FOR COMPAREABLES AND COMPARATORS?
     No, we cant use Lambdas for Compareables and Comparators. Because compareTo() needs this-object with another object for comparision.
     And in comparables/comparators we dont have concept of this-keyword.
+
