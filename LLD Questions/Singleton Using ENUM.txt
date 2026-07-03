@@ -1,0 +1,162 @@
+https://www.baeldung.com/java-singleton
+
+
+
+
+
+Step 1: What is an enum?
+
+Normally, you use an enum like this:
+
+enum Day {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY
+}
+
+Here, MONDAY, TUESDAY, and WEDNESDAY are actually objects, not just names.
+
+You can write:
+
+Day d = Day.MONDAY;
+
+Notice you never do:
+
+new Day();   // ❌ Not allowed
+
+Java creates these objects automatically.
+
+Step 2: What if an enum has only one value?
+enum Singleton {
+    INSTANCE
+}
+
+Now this enum has only one object:
+
+Singleton.INSTANCE
+
+That's it.
+
+There can never be another object because Java doesn't allow it.
+
+Singleton
+   │
+   └── INSTANCE  ← Only object in existence
+Step 3: Why is this a Singleton?
+
+What is the definition of a Singleton?
+
+"There should be only one object of the class."
+
+Our enum already guarantees that.
+
+There is only one object:
+
+Singleton.INSTANCE
+
+So the Singleton pattern is achieved automatically.
+
+Step 4: Add methods
+
+Enums can have methods just like classes.
+
+public enum Singleton {
+
+    INSTANCE;
+
+    public void print() {
+        System.out.println("Hello");
+    }
+}
+
+Use it like this:
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Singleton.INSTANCE.print();
+    }
+}
+
+Output
+
+Hello
+Step 5: Compare with the normal Singleton
+Normal Singleton
+class Singleton {
+
+    private static Singleton instance = new Singleton();
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+
+Use:
+
+Singleton s = Singleton.getInstance();
+Enum Singleton
+enum Singleton {
+    INSTANCE;
+}
+
+Use:
+
+Singleton s = Singleton.INSTANCE;
+
+No getInstance() method is needed because INSTANCE is already the single object.
+
+Step 6: Are s1 and s2 the same object?
+public class Main {
+
+    public static void main(String[] args) {
+
+        Singleton s1 = Singleton.INSTANCE;
+        Singleton s2 = Singleton.INSTANCE;
+
+        System.out.println(s1 == s2);
+    }
+}
+
+Output:
+
+true
+
+Why?
+
+Because both variables point to the same object.
+
+          +----------------+
+s1 ------>|   INSTANCE     |
+           +----------------+
+s2 ------>|
+The key idea
+
+Think of an enum as a class where Java creates a fixed set of objects for you.
+
+enum TrafficLight {
+    RED,
+    YELLOW,
+    GREEN
+}
+
+Java creates:
+
+TrafficLight.RED
+TrafficLight.YELLOW
+TrafficLight.GREEN
+
+Similarly,
+
+enum Singleton {
+    INSTANCE
+}
+
+Java creates:
+
+Singleton.INSTANCE
+
+Since there is only one object, it naturally behaves as a Singleton.
