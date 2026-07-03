@@ -1,0 +1,444 @@
+File based configuration manager
+Problem Statement
+You are tasked with creating a system-wide configuration manager for a complex software suite. The configuration manager is responsible for managing various configuration settings that affect the behavior and appearance of the software. To prevent multiple instances of the configuration manager, which could lead to inconsistencies and potential resource conflicts, you need to implement a design pattern that ensures the configuration manager is a singleton object.
+Assignment
+You are required to extend an abstract class FileBasedConfigurationManager to implement the Singleton design pattern and create a configuration manager class. The abstract class provides a foundation for managing configuration settings using a file-based approach.
+Part 1: Implementing Singleton and Extending Abstract Class
+1.	Extend the FileBasedConfigurationManager abstract class: You already have an abstract class named FileBasedConfigurationManager. Your task is to extend this class to create your own configuration manager class.
+2.	Implement the Singleton design pattern: Within your configuration manager class, implement the Singleton design pattern to ensure that only one instance of your class can exist within the program.
+3.	Implement the getInstance() and resetInstance() methods: Implement the getInstance() and resetInstance() methods in your configuration manager class. The getInstance() method should return the singleton instance of your configuration manager class. The resetInstance() method should reset the singleton instance of your configuration manager class to null.
+Part 2: Configuration Management
+The FileBasedConfigurationManager abstract class provides a foundation for managing configuration settings using a file-based approach .
+It already has a load method that loads configuration settings from a file and stores it in a Properties  object. The Properties object is a collection of key-value pairs, where the key is a string and the value is an object.
+Implement the following methods for configuration management in your extended class:
+•	String getConfiguration(String key): Retrieve a configuration value based on a given key.
+•	<T> T getConfiguration(String key, Class<T> type): Retrieve a configuration value and perform type conversion.
+•	void setConfiguration(String key, String value): Set a configuration value.
+•	<T> void setConfiguration(String key, T value): Set a configuration value with type checking.
+•	void removeConfiguration(String key): Remove a configuration value based on a given key.
+•	void clear(): Clear all configuration settings.
+
+
+SOLUTION:
+package com.assignment.question;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public abstract class FileBasedConfigurationManager 
+{
+    protected final Properties properties;
+
+    public FileBasedConfigurationManager() {
+        this.properties = new Properties();
+    }
+
+    public void load(String filePath) {
+        try (FileInputStream fileInputStream = new FileInputStream(filePath)) {
+            properties.load(fileInputStream);
+        } catch (IOException e) {
+            throw new RuntimeException("Error while loading configuration file", e);
+        }
+    }
+
+    public static FileBasedConfigurationManager getInstance() {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    protected static void resetInstance() {
+
+    }
+
+    public abstract String getConfiguration(String key);
+
+    public abstract <T> T getConfiguration(String key, Class<T> type);
+
+    public abstract void setConfiguration(String key, String value);
+
+    public abstract <T> void setConfiguration(String key, T value);
+
+    public abstract void removeConfiguration(String key);
+
+    public abstract void clear();
+
+    protected Properties getProperties() {
+        return properties;
+    }
+
+    protected <T> T convert(String value, Class<T> type) {
+        System.out.println("Converting " + value + " to " + type.getSimpleName());
+        switch (type.getSimpleName()) {
+            case "Integer":
+                return (T) Integer.valueOf(value);
+            case "Long":
+                return (T) Long.valueOf(value);
+            case "Float":
+                return (T) Float.valueOf(value);
+            case "Double":
+                return (T) Double.valueOf(value);
+        }
+        throw new UnsupportedOperationException("Invalid type: " + type.getSimpleName());
+    }
+
+}
+
+
+
+package com.assignment.question;
+
+import java.util.Optional;
+
+import lombok.val;
+
+public class FileBasedConfigurationManagerImpl extends FileBasedConfigurationManager 
+{
+    static FileBasedConfigurationManagerImpl fileBasedConfigurationManagerImpl = null;
+
+    private FileBasedConfigurationManagerImpl()
+    {
+        super();   
+    }
+
+    @Override
+    public String getConfiguration(String key) {
+        // TODO Auto-generated method stub
+        return getProperties().getProperty(key);
+        }
+
+    @Override
+    public <T> T getConfiguration(String key, Class<T> type) {
+        // TODO Auto-generated method stub
+        String value = getConfiguration(key);
+        return Optional .ofNullable(value). map(v->convert(value, type)).orElse(null) ;
+    }
+
+    @Override
+    public void setConfiguration(String key, String value) {
+        // TODO Auto-generated method stub
+        getProperties().setProperty(key, value);
+    }
+
+    @Override
+    public <T> void setConfiguration(String key, T value) {
+        // TODO Auto-generated method stub
+        setConfiguration(key, value.toString());
+    }
+
+    @Override
+    public void removeConfiguration(String key) {
+        // TODO Auto-generated method stub
+       getProperties().remove(key);
+    }
+
+    @Override
+    public void clear() {
+        // TODO Auto-generated method stub
+        getProperties().clear();
+    }
+
+    public static FileBasedConfigurationManager getInstance() {
+        // TODO Auto-generated method stub
+
+        if(fileBasedConfigurationManagerImpl==null)
+        {
+            synchronized(FileBasedConfigurationManager.class)
+            {
+                if(fileBasedConfigurationManagerImpl == null)
+                {
+                    fileBasedConfigurationManagerImpl = new FileBasedConfigurationManagerImpl();
+                }
+            }
+        }
+        return fileBasedConfigurationManagerImpl;
+    }
+
+    public static void resetInstance() {
+        // TODO Auto-generated method stub
+        fileBasedConfigurationManagerImpl=null;
+    }
+
+}
+
+
+
+
+
+
+Logger
+Problem Statement
+You are tasked with developing a logging module for a complex software application. The logging module needs to maintain a single log file throughout the application's execution to avoid file access conflicts and ensure consistency. To prevent multiple instances of the logging module and ensure thread-safe access to the log file, you need to implement the Singleton design pattern along with the logging functionality.
+Assignment
+Your task is to implement the Logger interface that follows the Singleton design pattern to manage logging operations and maintain a single log file.
+Part 1: Implementing Singleton and Logger
+1.	Implement the Singleton design pattern: Create a class that implements the Logger interface. Implement the Singleton design pattern within this class to ensure that only one instance of the logger can exist within the program.
+2.	Implement the getInstance() and resetInstance() methods: Implement the getInstance() method in the LoggerSolution class. This method should return the singleton instance of the logger class. Also, implement the resetInstance() method to reset the singleton instance to null.
+Part 2: Logging Operations
+The logger module is responsible for recording log messages of different levels in a single log file. Think of it as a central place where various parts of your software can write messages for debugging or monitoring purposes.
+You have to implement the following methods:
+•	void setLogFile(String filePath): This method sets the log file path. The logger will write log messages to this file. Look at using the java.io.PrintWriter and java.io.FileWriter classes to write to the log file. You can initialise them in this method.
+•	void log(LogLevel level, String message): This method is responsible for logging a message with a specified log level. The log message should include a timestamp, log level, and the provided message. Throw an IllegalStateException if the logger is not initialised using the setLogFile() method.
+•	String getLogFile(): This method returns the current log file path.
+•	void flush(): This method flushes any buffered log entries to the log file. Find the appropriate method to use from the java.io.PrintWriter class.
+•	void close(): This method closes the logger and releases any resources. Find the appropriate method to use from the java.io.PrintWriter class.
+
+
+SOLUTION:
+
+package com.assignment.question;
+
+import org.springframework.boot.logging.LogLevel;
+
+public interface Logger {
+
+    void log(LogLevel level, String message);
+
+    void setLogFile(String filePath);
+
+    String getLogFile();
+
+    // Flush the log entries to the file
+    void flush();
+
+    // Close the logger and release any resources
+    void close();
+}
+
+
+
+package com.assignment.question;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.boot.logging.LogLevel;
+
+public class LoggerImpl implements Logger 
+{
+    static LoggerImpl instance = null;
+    String logFilePath;
+    PrintWriter logWriter;
+
+    private LoggerImpl()
+    {
+
+    }
+
+    public static LoggerImpl getInstance()
+    {
+        if(instance == null)
+        {
+            synchronized(LoggerImpl.class)
+            {
+                if(instance==null)
+                {
+                    instance = new LoggerImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static void resetInstance()
+    {
+        instance = null;
+    }
+
+    @Override
+    public void log(LogLevel level, String message) 
+    {
+        if (logWriter == null) {
+            throw new IllegalStateException("Log file not set. Call setLogFile() before logging.");
+        }
+        LocalDateTime timestamp = LocalDateTime.now();
+        String formattedMessage = "[" + timestamp.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "] "
+                + "[" + level.name() + "] " + message;
+        logWriter.println(formattedMessage);
+
+    }
+
+    @Override
+    public void setLogFile(String filePath) 
+    {
+        try {
+            close();
+            logFilePath = filePath;
+            logWriter = new PrintWriter(new FileWriter(logFilePath, true));
+        } 
+        catch (IOException e) 
+        {
+            throw new RuntimeException("Error setting log file: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public String getLogFile() {
+        return logFilePath;
+    }
+
+    @Override
+    public void flush() 
+    {
+        if(logWriter!=null)
+        {
+            logWriter.flush();
+        }
+    }
+
+    @Override
+    public void close() 
+    {
+        if(logWriter!=null)
+        {
+        logWriter.close();
+        logWriter =null;
+        }
+    }
+}
+
+
+
+
+
+Connection Pool
+Problem Statement
+You are tasked with designing a connection pool for a database management module of a complex software application. The connection pool is responsible for managing database connections efficiently to avoid unnecessary overhead and ensure optimal resource usage. To prevent multiple instances of the connection pool manager and ensure thread-safe access to connections, you need to implement the Singleton design pattern along with the connection pool management functionality.
+Assignment
+Your task is to implement the ConnectionPool interface that follows the Singleton design pattern to manage a pool of database connections.
+Part 1: Implementing Singleton and Connection Pool
+1.	Implement the Singleton design pattern: Create a class that implements the ConnectionPool interface. Implement the Singleton design pattern within this class to ensure that only one instance of the connection pool manager can exist within the program.
+2.	Implement the getInstance(int maxConnections) and resetInstance() methods: Implement the getInstance(int maxConnections) method in the ConnectionPoolImpl class. This method should return the singleton instance of the connection pool manager class. Also, implement the resetInstance() method to reset the singleton instance to null.
+Part 2: Connection Pool Management
+In connection pooling, the aim is to efficiently handle a group of database connections. This ensures optimal resource usage and effective sharing of connections across different parts of the software.
+Here's an analogy to help you understand the concept of connection pooling. Imagine a library with a large collection of books. The library has a shelf where all the books are kept. When a reader wants to borrow a book, they go to the shelf, pick up the book, and take it to a reading table. When they are done reading, they return the book to the shelf. The library keeps track of which books are available and which ones are currently being used by readers.
+You have to implement the following methods:
+•	void initializePool(): This method is responsible for initializing the connection pool. It should create a fixed number of connections and add them to the pool. Use the DatabaseConnection class to create dummy connections. Store the connections in a data structure of your choice, but you will have to track which connections are available and which ones are currently in use.
+•	DatabaseConnection getConnection(): This method is responsible for providing a connection to the caller. It should return a connection from the pool of available connections. Once a connection is returned, it should be marked as "unavailable" so that other parts of the software don't use it.
+•	void releaseConnection(DatabaseConnection connection): This method is responsible for releasing a connection back to the pool. It should mark the connection as "available" so that other parts of the software can use it.
+•	int getAvailableConnectionsCount(): Implement this method to count how many "available" connections remain in the pool.
+•	int getTotalConnectionsCount(): This method is about determining the total number of connections, whether they are currently in use or not.
+
+SOLUTION:
+
+package com.assignment.question;
+
+public interface ConnectionPool {
+
+    void initializePool();
+
+    DatabaseConnection getConnection();
+
+    void releaseConnection(DatabaseConnection connection);
+
+    int getAvailableConnectionsCount();
+
+    int getTotalConnectionsCount();
+
+}
+
+
+package com.assignment.question;
+
+public class DatabaseConnection 
+{
+    
+}
+
+package com.assignment.question;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+import javax.management.RuntimeErrorException;
+
+public class ConnectionPoolImpl implements ConnectionPool {
+    static ConnectionPoolImpl instance = null;
+    int maxConnections;
+    private BlockingQueue<DatabaseConnection> connectionQueue;
+
+    private ConnectionPoolImpl(int maxConnections) 
+    {
+        this.maxConnections = maxConnections;
+        connectionQueue = new ArrayBlockingQueue<>(maxConnections);
+        initializePool();
+    }
+
+    public static ConnectionPoolImpl getInstance(int maxConnections)
+    {
+        if(instance == null)
+        {
+            synchronized(ConnectionPoolImpl.class)
+            {
+                if(instance==null)
+                {
+                    instance = new ConnectionPoolImpl(maxConnections);
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static void resetInstance()
+    {
+        instance =null;
+    }
+
+    @Override
+    public void initializePool() 
+    {
+        for (int i = 0; i < maxConnections; i++) 
+        {
+            DatabaseConnection connection = new DatabaseConnection();
+                connectionQueue.offer(connection);
+        }
+    }
+
+    // public DatabaseConnection createConnection()
+    // {
+    //     return new DatabaseConnection();
+    // }
+
+    @Override
+    public DatabaseConnection getConnection() 
+    {
+        try
+        {
+            return connectionQueue.take();
+        }   
+        catch(InterruptedException e)
+        {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Error", e);
+        }
+    }
+
+    @Override
+    public void releaseConnection(DatabaseConnection connection) 
+    {
+        try
+        {
+        if(connection!=null)
+        {
+            connectionQueue.offer(connection);
+        }
+    }
+    catch(Exception e)
+    {
+        throw new RuntimeException("error",e);
+    }
+    }
+
+    @Override
+    public int getAvailableConnectionsCount() {
+        return connectionQueue.size();
+    }
+
+    @Override
+    public int getTotalConnectionsCount() {
+        return maxConnections;
+    }
+}
+
