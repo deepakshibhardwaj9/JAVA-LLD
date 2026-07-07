@@ -1,0 +1,479 @@
+Builder Pattern Implementation for a messaging service
+Problem Statement
+You are developing a messaging application with support for various message types, including text, images, audio, and video. Each message type can have additional attributes and settings, such as delivery status and timestamps. The current approach of creating message objects using multiple overloaded constructors has become error-prone and challenging to maintain. You should streamline the creation of message objects with different configurations and immutable objects.
+Assignment
+Your task is to implement the Builder pattern to create instances of message objects with different configurations. The Builder pattern allows for step-by-step construction of complex objects while keeping the creation process separate from the main object.
+Implementing the Builder Pattern
+1.	Review the original class: You have been provided with a class named Message. This class represents different message types and their attributes. Your task is to implement the Builder pattern to create instances of a class with the same properties.
+2.	Create the builder class: Create a new class called MessageBuilder that will implement the builder patter. A dummy class has been provided for you to start with. Remember to annotate the class with the @WithBuilder annotation. The name does not matter as long as it is annotated.
+3.	Test your implementation: Test cases has been provided for you to test your implementation. Run the test case to ensure that your implementation is correct.
+
+
+SOLUTION::::::::
+package com.assignment.question;
+
+public  class Message 
+{
+
+    private MessageType messageType;
+    private String content;
+    private String sender;
+    private String recipient;
+    private boolean isDelivered;
+    private long timestamp;
+
+    public Message(MessageType messageType, String content, String sender, String recipient, boolean isDelivered, long timestamp) {
+        this.messageType = messageType;
+        this.content = content;
+        this.sender = sender;
+        this.recipient = recipient;
+        this.isDelivered = isDelivered;
+        this.timestamp = timestamp;
+    }
+
+    public MessageType getMessageType() 
+    {
+        return messageType;
+    }
+
+    public String getContent() 
+    {
+        return content;
+    }
+
+    public String getSender() 
+    {
+        return sender;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public boolean isDelivered() 
+    {
+        return isDelivered;
+    }
+
+    public long getTimestamp() 
+    {
+        return timestamp;
+    }
+
+    public static MessageBuilder getBuilder()
+    {
+        return new MessageBuilder();
+    }
+}
+
+package com.assignment.question;
+
+@WithBuilder
+public class MessageBuilder 
+{
+
+    private MessageType messageType;
+    private String content;
+    private String sender;
+    private String recipient;
+    private boolean isDelivered;
+    private long timestamp;
+
+    public static Builder builder() 
+    {
+        return new Builder();
+    }
+
+    public static class Builder 
+    {
+
+        private MessageBuilder messageBuilder;
+
+        public Builder() {
+            messageBuilder = new MessageBuilder();
+        }
+
+        public Builder messageType(MessageType messageType) {
+            messageBuilder.messageType = messageType;
+            return this;
+        }
+
+        public Builder content(String content) {
+            messageBuilder.content = content;
+            return this;
+        }
+
+        public Builder sender(String sender) {
+            messageBuilder.sender = sender;
+            return this;
+        }
+
+        public Builder recipient(String recipient) {
+            messageBuilder.recipient = recipient;
+            return this;
+        }
+
+        public Builder isDelivered(boolean isDelivered) {
+            messageBuilder.isDelivered = isDelivered;
+            return this;
+        }
+
+        public Builder timestamp(long timestamp) {
+            messageBuilder.timestamp = timestamp;
+            return this;
+        }
+
+        public MessageBuilder build() {
+
+            MessageBuilder messageBuilder = new MessageBuilder();
+            messageBuilder.messageType = this.messageBuilder.messageType;
+            messageBuilder.content = this.messageBuilder.content;
+            messageBuilder.sender = this.messageBuilder.sender;
+            messageBuilder.recipient = this.messageBuilder.recipient;
+            messageBuilder.isDelivered = this.messageBuilder.isDelivered;
+            messageBuilder.timestamp = this.messageBuilder.timestamp;
+            return messageBuilder;
+        }
+    }
+
+}
+
+
+package com.assignment.question;
+
+public enum MessageType {
+    TEXT,
+    IMAGE,
+    AUDIO,
+    VIDEO
+}
+
+package com.assignment.question;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface WithBuilder {
+}
+
+
+
+
+
+
+==============================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+
+Builder Pattern Implementation for Building Queries
+Problem Statement
+You are tasked with developing a database management system that involves creating and executing SQL queries. Queries can vary in complexity, involving different SELECT clauses, JOIN operations, WHERE conditions, and more. The current approach of constructing queries using concatenated strings has proven to be error-prone, difficult to read, and challenging to modify. You should implement the Builder pattern to create instances 
+of query objects with various configurations, resulting in more maintainable and flexible code.
+Assignment
+Your task is to implement the Builder pattern to construct query objects with different configurations. The Builder pattern facilitates the step-by-step construction of complex objects while keeping the creation process separate from the main object.
+Implementing the Builder Pattern
+1.	Review the original class: You have been provided with a class named Query. This class represents SQL queries with different components. Your task is to implement the Builder pattern to create instances of a class with the same properties.
+2.	Create the builder class: Develop a new class called QueryBuilder that will implement the Builder pattern for creating query instances. A starter class has been given for you to begin with. Don't forget to annotate the class with the @WithBuilder annotation. The actual name of the class doesn't matter, as long as it is annotated.
+3.	Test your implementation: Test cases have been provided for you to verify the correctness of your implementation. Execute the test cases to ensure the accuracy of your code.
+
+SOLUTION:::::::::::::::::::
+package com.assignment.question;
+
+public class Query {
+
+    private String select;
+    private String from;
+    private String where;
+    private String join;
+    private String orderBy;
+    private String groupBy;
+
+    public Query(String select, String from, String where, String join, String orderBy, String groupBy) {
+        this.select = select;
+        this.from = from;
+        this.where = where;
+        this.join = join;
+        this.orderBy = orderBy;
+        this.groupBy = groupBy;
+    }
+
+    public String getSelect() {
+        return select;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getWhere() {
+        return where;
+    }
+
+    public String getJoin() {
+        return join;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public String getGroupBy() {
+        return groupBy;
+    }
+}
+
+
+
+package com.assignment.question;
+
+@WithBuilder
+public class QueryBuilder {
+    private String select;
+    private String from;
+    private String where;
+    private String join;
+    private String orderBy;
+    private String groupBy;
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private QueryBuilder queryBuilder;
+
+        public Builder() {
+            queryBuilder = new QueryBuilder();
+        }
+
+        public Builder select(String select) {
+            queryBuilder.select = select;
+            return this;
+        }
+
+        public Builder from(String from) {
+            queryBuilder.from = from;
+            return this;
+        }
+
+        public Builder where(String where) {
+            queryBuilder.where = where;
+            return this;
+        }
+
+        public Builder join(String join) {
+            queryBuilder.join = join;
+            return this;
+        }
+
+        public Builder orderBy(String orderBy) {
+            queryBuilder.orderBy = orderBy;
+            return this;
+        }
+
+        public Builder groupBy(String groupBy) {
+            queryBuilder.groupBy = groupBy;
+            return this;
+        }
+
+        public QueryBuilder build() {
+
+            QueryBuilder queryBuilder = new QueryBuilder();
+            queryBuilder.select = this.queryBuilder.select;
+            queryBuilder.from = this.queryBuilder.from;
+            queryBuilder.where = this.queryBuilder.where;
+            queryBuilder.join = this.queryBuilder.join;
+            queryBuilder.orderBy = this.queryBuilder.orderBy;
+            queryBuilder.groupBy = this.queryBuilder.groupBy;
+            return queryBuilder;
+        }
+
+    }
+}
+
+
+
+package com.assignment.question;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface WithBuilder {
+}
+
+
+
+
+==============================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+Builder Pattern Implementation for a database configuration class
+Problem Statement
+You are tasked with creating a system-wide database configuration for a complex software suite. The configuration is responsible for managing various configuration settings that affect the data layer. To ensure a flexible and readable way to create configuration instances that are immutable, you decide to implement the Builder pattern.
+Assignment
+Your task is to implement the Builder pattern to create instances of a configuration manager class. The Builder pattern allows for step-by-step construction of complex objects while keeping the creation process separate from the main object.
+Implementing the Builder Pattern
+1.	Review the original class - You have been provided with a class that represents the database configuration DatabaseConfiguration. The class has a number of properties that are used to configure the database connection. Your task is to implement the Builder pattern to create instances of a class with the same properties.
+2.	Implement the builder class - Implement the class called DatabaseConfigurationBuilder that will implement the builder pattern. Remember the class is annotated with @WithBuilder annotation. The name does not matter as long as it is annotated.
+3.	Test your implementation - Hidden test case has been provided for you to test your implementation. Click the submit button to run the test cases to ensure that your implementation is correct. This will pick the correct implementation of the builder class based on the @WithBuilder annotation.
+Note
+Do not create any new file. Explore the file structure and implement and complete the code wherver required.
+
+SOLUTION::::::::::::::::
+package com.assignment.question;
+
+public class DatabaseConfiguration {
+
+    private String databaseUrl;
+    private String username;
+    private String password;
+    private int maxConnections;
+    private boolean enableCache;
+    private boolean isReadOnly;
+
+    public DatabaseConfiguration(String databaseUrl, String username, String password, int maxConnections, boolean enableCache, boolean isReadOnly) {
+        this.databaseUrl = databaseUrl;
+        this.username = username;
+        this.password = password;
+        this.maxConnections = maxConnections;
+        this.enableCache = enableCache;
+        this.isReadOnly = isReadOnly;
+    }
+
+    public String getDatabaseUrl() {
+        return databaseUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getMaxConnections() {
+        return maxConnections;
+    }
+
+    public boolean isEnableCache() {
+        return enableCache;
+    }
+
+    public boolean isReadOnly() {
+        return isReadOnly;
+    }
+}
+
+package com.assignment.question;
+
+import javax.xml.crypto.Data;
+
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
+
+import lombok.Builder;
+
+@WithBuilder
+public class DatabaseConfigurationBuilder 
+{
+    public String databaseUrl;
+    public String username;
+    public String password;
+    public int maxConnections;
+    public boolean enableCache;
+    public boolean isReadOnly;
+
+    public static Builder build()
+    {
+        return new Builder();
+    }
+
+    public static class Builder
+    {
+        private DatabaseConfigurationBuilder databaseConfigurationBuilder ;
+
+        public Builder()
+        {
+            databaseConfigurationBuilder = new DatabaseConfigurationBuilder();
+        }
+
+        public Builder getDatabaseUrl(String databaseUrl) 
+        {
+            databaseConfigurationBuilder.databaseUrl = databaseUrl;
+            return this;
+        }
+    
+        public Builder getUsername(String username) 
+        {
+            databaseConfigurationBuilder.username = username;
+            return this;
+        }
+    
+        public Builder getPassword(String password) 
+        {
+            databaseConfigurationBuilder.password = password;
+            return this;
+        }
+    
+        public Builder getMaxConnections(int maxConnections) 
+        {
+            databaseConfigurationBuilder.maxConnections = maxConnections;
+            return this;
+        }
+    
+        public Builder isEnableCache(Boolean enableCache) {
+            databaseConfigurationBuilder.enableCache = enableCache;
+            return this;
+        }
+    
+        public Builder isReadOnly(Boolean isReadOnly) 
+        {
+            databaseConfigurationBuilder.isReadOnly = isReadOnly;
+            return this;
+        }
+
+        public DatabaseConfigurationBuilder build()
+        {
+            DatabaseConfigurationBuilder databaseConfigurationBuilder = new DatabaseConfigurationBuilder();
+            databaseConfigurationBuilder.databaseUrl = this.databaseConfigurationBuilder.databaseUrl;
+            databaseConfigurationBuilder.username = this.databaseConfigurationBuilder.username;
+            databaseConfigurationBuilder.password = this.databaseConfigurationBuilder.password;
+            databaseConfigurationBuilder.maxConnections = this.databaseConfigurationBuilder.maxConnections;
+            databaseConfigurationBuilder.enableCache = this.databaseConfigurationBuilder.enableCache;
+            databaseConfigurationBuilder.isReadOnly = this.databaseConfigurationBuilder.isReadOnly;
+            return databaseConfigurationBuilder;
+        }
+    }
+    
+}
+
+
+
+
+package com.assignment.question;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface WithBuilder {
+}
+
+
+
+
+
