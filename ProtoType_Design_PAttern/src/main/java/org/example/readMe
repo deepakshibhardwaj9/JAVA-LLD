@@ -1,0 +1,15 @@
+Prototype Design Pattern is basically used to create templates, where as registry Design Pattern is way to add those
+templates in Registry and than if needed we can fetch from registry and make clone of those templates.
+
+1) Create template.
+2) Create template in such a way that it follows Dependency Inversion Principle.
+3) Create a Registry Class.
+4) Use a data structure, basically i use HashMAp to store those templates in Registry.
+5) Use basic functionalities of Hashmap to store, get, etc. the object from registry.
+
+TIP: Instead of directly fetching the original object from registry , we should fetch the copy of object. So that,
+     original object is not modified. To ensure this, i use clone() method in get() method of registry class.
+
+
+As here the client is creating the template first and than add it in the Registry. But,if i want that my registry is pre-filled,
+than for that, just add the prefilled templates in constructors.
