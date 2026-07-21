@@ -12,6 +12,12 @@ Low Level Design Concepts are introduced in this Repository:
 10) Collections
 11) Streams and Lambda
 12) Expection Handling
-13) Singleton Design Pattern
-14) Builder Design Pattern
-15) 
+
+-------DESIGN PATTERNS---------
+1) Singleton Design Pattern
+2) Builder Design Pattern
+3) Prototype and Registry Design Pattern
+4) Factory Design Pattern
+5) Adapter and Facade Design Pattern
+6) Decorator and Flyweight Design Pattern
+7) Behavioural Design Pattern 
