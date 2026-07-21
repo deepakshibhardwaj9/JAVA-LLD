@@ -1,0 +1,27 @@
+PROBLEM STATEMENT IS :
+So client has more than one database with them like MongoDb, SQL, etc.
+On one day client want to connect with SQL database, he implemented the functions and did everything according to SQL database.
+On next-day, client want to connect with MongoDb, now it is difficult and makes no sense to again change the functions, attributes, logic according to
+MongoDb database again, which is wasting our time. It's too long process, to change the implementations again and again.
+
+Also, two concrete classes depend on each other directly(example-Database and MySql), which exploits Dependency Inversion Principle.
+According to Dependency Inversion Principle, two concrete classes can't depend on directly they should have depended on via interface/abstract class.
+
+POSSIBLE SOLUTION:
+1) Introduce abstraction between classes, create interface with common methods and depend on interfaces.
+2) If there are common attributes as well than use Abstract classes.
+3) Create a factory which has core product-details inside it.
+4) Create classes which implement the interface, and those classes would act as a stores of every brand, which has products from the factory.
+5) Now create the separate class for each product.(example: for shoes, for tshirts, etc. each factory/interface will create its own product. Tshirt-factory will create tshirts only, like that)
+6) Once the products were created we need a medium to transport that products in showrooms.(Sent adidas tshirt to adidas showrrom, puma shoes to puma showroom, and soo on)
+7) Now customer will come and enter the desired showroom to buy product, so using if-else condition we can check customer want to go in which showroom.
+8) And once customer enter in the showroom ,they can buy the products which are displayed.
+
+
+
+
+FACTORY METHODS:
+Factory method is a method that takes care of creating an object of another class at runtime, based on user input.
+ABSTRACT FACTORY:
+It is an interface, which contains all the factory-methods.
+If a class is having factory-methods and non-factory methods, than it will exploits SRP 
