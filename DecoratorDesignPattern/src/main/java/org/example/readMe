@@ -1,0 +1,25 @@
+PROBLEM:
+- When an object can have many optional features / add-ons (pizza toppings, coffee extras, ice-cream toppings),
+  using inheritance creates a large number of subclasses for every combination.
+- This is called class explosion.
+- We need a way to add features at runtime (dynamically) without modifying the existing classes.
+
+SOLUTION:
+1) Uses composition + inheritance/interfaces
+   Decorator DP primarily uses composition (wrapping one object inside another).
+   It also uses inheritance or interface implementation so that all objects share the same type.-First differentiate between Base and extra toppings/add-ons of the product.
+2) The main-object/Base or the actual item that is being sold, that is our interface.
+   Example: Pizza would be the end product, no matter what kind of it is. And then it is an interface, while the types of
+   pizza are the implementation of Pizza interface.
+   Because if we add anything on pizza/iceCream at the end final object remains pizza/iceCream itself.
+   So, Base product is interface.
+3) Else the remaining things like toppings/add-ons to that will be the classes which implements the interface.
+   Because we wrap the toppings over Base product. Wrapping logic is shared.
+4) Create an abstract class of decorator/add-ons, abstract because every decorator has its own implementation, its own features.
+   Decorator will also wrap Base object, so decorator will implement Base interface.
+5) We create different classes for different add-ons and they will be the child classes of Decorator-class.
+6) Now in future if we any new add-on/feature will be there that will be introduced in a new class, which is a child
+   class of decorator class.
+
+
+For every new feature create a decorator class of it and than implement the variations of same feature as a child class of it.
