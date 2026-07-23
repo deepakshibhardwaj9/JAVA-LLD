@@ -1,0 +1,12 @@
+PROBLEM:
+If we implement all the functionalities of an application in a single class, than a facade is
+created inside class. Also, this will violate SRP,OCP. So to solve this problem, we use a DP
+called as Facade D.P.
+
+SOLUTION:
+Instead of creating all the functions inside a single class, create separate classes for all the
+functionalities, such that it will follow SRP.
+Also, if we need to add a new functionality we can create a separate class of it, which follows
+OCP.
+Now, once the functionalities are defined we can call the methods from class in ordered manner.
+
