@@ -1,0 +1,14 @@
+PROBLEM:
+When an application needs to create a very large number of objects with similar or identical
+data, each object stores duplicate information. This leads to excessive memory usage, poor performance,
+and increased object creation time.
+
+Classic Example:
+In a 3D game rendering a forest with 10,000 trees, if each tree object individually stores its own heavy
+3D mesh and texture data, the app will run out of memory instantly.
+
+SOLUTION:
+-The Flyweight Pattern separates data into:
+    Intrinsic State (Shared): Common data that doesn't change (e.g., tree image, font, texture).
+    Extrinsic State (Unique): Data that changes for each object (e.g., position, size, health).
+
