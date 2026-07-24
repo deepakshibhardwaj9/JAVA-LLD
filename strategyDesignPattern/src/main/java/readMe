@@ -22,3 +22,6 @@ CODE Example:
 6) The Factory takes responsibility for instantiating or retrieving the correct strategy object based on a key/type.
 7) User input decides the active behavior (Execution):
 8) The user passes their choice, the factory returns the matching strategy, and your context class executes it.
+
+
+Strategy Design Pattern, is a behavioral design pattern that lets you define a family of algorithms, put them in a separate class and make them interchangeable at runtime.
