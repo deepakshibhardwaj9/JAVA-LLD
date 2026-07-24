@@ -1,0 +1,24 @@
+PROBLEM:
+If there exists family of algorithms and we have more than one ways to implement same problem.
+What makes strategy design pattern different from factory design pattern?
+Factory answers “What object do I construct?”
+Strategy answers “How do I perform this specific task right now?”
+
+
+SOLUTION:
+1) Define a strategy interface, which has common method to implement.
+2) Define classes having different algos,also implements interface.
+3) Now which algo is now need to implement at time of object creation, this is decided by factory-class.
+4) USer will give the input and according to that input, which algorithm should work that is decided.
+
+
+
+CODE Example:
+1) Define a strategy interface (Contract):
+2) You create an interface (e.g., PaymentStrategy) that dictates what method needs to be called.
+3) Define classes with different algos (Implementations):
+4) Each concrete strategy (e.g., CreditCardPayment, PaypalPayment) implements that interface with its own custom logic.
+5) Decide which algorithm to create using a Factory Class (Creation):
+6) The Factory takes responsibility for instantiating or retrieving the correct strategy object based on a key/type.
+7) User input decides the active behavior (Execution):
+8) The user passes their choice, the factory returns the matching strategy, and your context class executes it.
