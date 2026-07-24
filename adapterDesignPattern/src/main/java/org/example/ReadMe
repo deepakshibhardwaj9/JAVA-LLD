@@ -1,0 +1,24 @@
+PROBLEM:
+Suppose,there are already existing applications, and there came a new party, which want to integrate with existing apps. Now, problem is
+apps which are already working, they wont change there code-base for new app.
+And it is difficult for third-party app to write code according to existing applications, this is very tough job.
+Therefore, a adapter design pattern is introduced.
+SOLUTION:
+1) Create a Interface.
+2) Create adapter class, which implement interface.
+3) Create a child class of adapter-class, which support its own as well as common functionalities
+
+
+TIP: Everything, every logic can be written inside adapter class.
+
+
+- EXAMPLE: phonepe and YESBank
+    - We have classes bankAPI, phonePe, YesBankAdapter, yesBankAPI.
+    - BankAPi defines the common operations that any bank integration must provide.
+    - YesBankAdapter class will give the implementation for the methods defined in interface, i.e. yesBankAdapter will implement bankAPI interface.
+    - Also YesBankAdapter will act as a translator between YesBankAPI and phonePe class.
+    - The adapter generally does not contain the banking business logic. It implements the methods of BankAPi by delegating or translating the calls to the appropriate methods in YesBankAPI.
+    - As YesBank will have its own functionalities as well so that is defined in YesBankAPI class.
+    - YesBankAPI class will perform the actual banking operation, this class will contain the actual business logic of bank.
+    - PhonePe depends only on the BankAPi interface.
+    - At runtime, it calls methods on a BankAPi reference, and Java's polymorphism ensures that the appropriate adapter implementation (such as YesBankAdapter) is invoked.
