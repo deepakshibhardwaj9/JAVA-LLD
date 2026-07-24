@@ -20,4 +20,6 @@ Low Level Design Concepts are introduced in this Repository:
 4) Factory Design Pattern
 5) Adapter and Facade Design Pattern
 6) Decorator and Flyweight Design Pattern
-7) Behavioural Design Pattern 
+7) Behavioural Design Pattern :
+     Stragety Design Pattern
+     Observer Design Pattern
