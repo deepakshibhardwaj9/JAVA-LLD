@@ -1,0 +1,33 @@
+PROBLEM:
+Suppose we have three systems, apple, android, laptop. And we have a weather forecast API, now all three systems
+call the API again and again after every minute, is there a change in weather?is there a change in weather?(This
+calling an API again and again is called pooling).
+When a system is doing polling than in a small system it is easy to initiate the calls again and again but in a large
+system it is difficult to do that.
+Problem is when an object change its state than traditionally, we make manual calls to the related method of a class
+one by one. This causes tight coupling and makes it difficult to dynamically add or remove listeners without modifying
+core code.
+
+And so a new pattern is introduced named as observer design pattern.
+
+SOLUTION (Observer Design Pattern):
+The main object (Subject) maintains a list of Observer objects (subscribers) that implement a shared interface. Whenever
+a state change happens, the Subject loops through this list and invokes a method (like update()) on each subscribed object
+automatically.
+To generate a event two type of terms are needed:
+1) Publisher: Publisher are the classes that will generate the event.
+2) Subsriber: Subscriber are the classes which wab=nts to know that event has happened.
+
+So when any change in weather-API is happened, automatically the call is generated to iphone users,android users, windows users.
+Where the change is happened that is called Subject.
+Where the change has to notified that are called Observers.
+This is a pub-sub model.
+
+Definition:
+Observer design pattern defines one-to-many dependency between objects so that when one object(known as
+Subject) change its state, all its dependents(Observer) are notified automatically.
+
+TIP:
+- Use Facade when you want to hide complexity behind a simple front wall.
+- Use Observer when you want to broadcast changes to listening objects without locking them together.
+- Subjects never change the state of observers. It only tells about its own state was changed.
