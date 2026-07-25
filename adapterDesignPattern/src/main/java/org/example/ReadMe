@@ -22,3 +22,7 @@ TIP: Everything, every logic can be written inside adapter class.
     - YesBankAPI class will perform the actual banking operation, this class will contain the actual business logic of bank.
     - PhonePe depends only on the BankAPi interface.
     - At runtime, it calls methods on a BankAPi reference, and Java's polymorphism ensures that the appropriate adapter implementation (such as YesBankAdapter) is invoked.
+
+TARGET INTERFACE : Interface which is responsible for abstraction.(example: BankAPI)
+ADAPTER: Adapter class.(example: ICICIAdapter, YesBabkAdapter)
+ADAPTEE: Classes which implement adapter-class.(example: ICICIBBank, YESBank)
