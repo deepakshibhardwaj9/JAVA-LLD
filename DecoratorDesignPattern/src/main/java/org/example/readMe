@@ -23,3 +23,7 @@ SOLUTION:
 
 
 For every new feature create a decorator class of it and than implement the variations of same feature as a child class of it.
+
+REMEMBER:
+Base decorator class, will act as a Bridge between the class which is end-product and the decorator-classes.
+Base-decorator class has protected object of main-product, which will travel through the child decorator classes.
