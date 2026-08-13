@@ -26,4 +26,4 @@ For every new feature create a decorator class of it and than implement the vari
 
 REMEMBER:
 Base decorator class, will act as a Bridge between the class which is end-product and the decorator-classes.
-Base-decorator class has protected object of main-product, which will travel through the child decorator classes.
+Base-decorator class has protected object of main-product, which will travel through the child decorator classes.This object will helped to wrap the logic inside it under child-decorator classes.
